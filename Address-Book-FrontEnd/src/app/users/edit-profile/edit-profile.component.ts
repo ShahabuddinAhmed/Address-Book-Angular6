@@ -1,18 +1,13 @@
 import { Register } from './../models/register';
-import { UserService } from '../user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.css']
 })
-export class RegisterComponent implements OnInit {
-
-  hide = true;
-  hide1 = true;
+export class EditProfileComponent implements OnInit {
   public Register: FormGroup;
   public name: FormControl;
   public email: FormControl;
@@ -53,7 +48,7 @@ export class RegisterComponent implements OnInit {
     ]);
   }
 
-  constructor(private _userService: UserService, private route: Router) { }
+  constructor() { }
 
   ngOnInit() {
     this.createFormControls();
@@ -66,11 +61,9 @@ export class RegisterComponent implements OnInit {
     this.register.userEmail = this.email.value;
     this.register.userPassword = this.password.value;
     this.register.userConfirmPassword = this.confirmPassword.value;
-    this._userService.register(this.register)
-    .subscribe(
-      data => console.log(data),
-      error => console.error(error)
-      );
+    console.log(this.register.userName);
+    console.log(this.register.userEmail);
+    console.log(this.register.userPassword);
+    console.log(this.register.userConfirmPassword);
   }
-
 }

@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserModule } from './users/user.module';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UserModule } from './users/user.module';
     BrowserModule,
     UserModule,
     AppRoutingModule,
-    UserRoutingModule
+    UserRoutingModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

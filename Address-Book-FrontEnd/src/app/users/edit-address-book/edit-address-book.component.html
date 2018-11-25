@@ -1,0 +1,74 @@
+<div class="container">
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-6 offset-sm-3" style="padding: 0px;">
+      <mat-card class="signin-card">
+        <mat-card-content>
+          <div class="card-basic-content">
+            <h2 class="font-weight-bold"><i>Edit Address book</i></h2>
+          </div>
+
+          <form class="example-form" [formGroup]="AddressBook" (ngSubmit)="onSubmit()" novalidate>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Full Name" [formControl]="fullName">
+              <mat-hint>Enter full name!</mat-hint>
+
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Nick Name" [formControl]="nickName">
+              <mat-hint>Enter nick name!</mat-hint>
+
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Phone number" [formControl]="phone1">
+              <mat-hint>Enter Phone number!</mat-hint>
+
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Another phone number" [formControl]="phone2">
+              <mat-hint>Enter Phone number(Optional)!</mat-hint>
+
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Address" [formControl]="address">
+              <mat-hint>Enter Address!</mat-hint>
+
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Website" [formControl]="website">
+              <mat-hint>Enter website!</mat-hint>
+
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Email" [formControl]="email">
+              <mat-hint>Enter email!</mat-hint>
+
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Birthday" [formControl]="birthday">
+              <mat-hint>Enter Birthday!</mat-hint>
+
+            </mat-form-field>
+
+
+            <button [disabled]='!AddressBook.valid' type="submit" mat-raised-button color="primary" class="form-button">Create Address</button>
+
+          </form>
+        </mat-card-content>
+
+        <mat-card-footer class="card-basic-content">
+          <!-- Footer -->
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>
