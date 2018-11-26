@@ -8,10 +8,11 @@ const cors = require('cors');
 const userRoutes = require('./api/routes/users');
 const addressBookRoutes = require('./api/routes/addressbook');
 
-mongoose.connect('mongodb://cost-counter:cost-counter@database-shard-00-00-v0ueh.gcp.mongodb.net:27017,database-shard-00-01-v0ueh.gcp.mongodb.net:27017,database-shard-00-02-v0ueh.gcp.mongodb.net:27017/OnlineAddressBook?ssl=true&replicaSet=database-shard-0&authSource=admin&retryWrites=true', {
-    useNewUrlParser: true,
-    useCreateIndex: true
-});
+// mongoose.connect('mongodb://cost-counter:cost-counter@database-shard-00-00-v0ueh.gcp.mongodb.net:27017,database-shard-00-01-v0ueh.gcp.mongodb.net:27017,database-shard-00-02-v0ueh.gcp.mongodb.net:27017/OnlineAddressBook?ssl=true&replicaSet=database-shard-0&authSource=admin&retryWrites=true', {
+//     useNewUrlParser: true,
+//     useCreateIndex: true
+// });
+mongoose.connect('mongodb://localhost:27017/addressbook');
 
 // morgan used for show colsole http request and error handleing
 app.use(morgan('dev'));
