@@ -12,7 +12,10 @@ const addressBookRoutes = require('./api/routes/addressbook');
 //     useNewUrlParser: true,
 //     useCreateIndex: true
 // });
-mongoose.connect('mongodb://localhost:27017/addressbook');
+mongoose.connect('mongodb://localhost:27017/AddressBook', {
+    useNewUrlParser: true,
+    useCreateIndex: true
+});
 
 // morgan used for show colsole http request and error handleing
 app.use(morgan('dev'));
