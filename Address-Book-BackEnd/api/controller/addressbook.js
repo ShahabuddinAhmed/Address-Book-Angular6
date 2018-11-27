@@ -28,46 +28,30 @@ exports.getAllAddressBook = (req, res, next) => {
 }
 
 exports.createAddressBook = (req, res, next) => {
-    AddressBooks.find({email: req.body.email})
-    .exec()
-    .then(addressbook => {
-        if(addressbook.length >=1) {
-            return res.status(409).json({
-                message: "This email is exit"
-            });
-        } else {
-            const addressbook = new AddressBooks({
-                _id: new mongoose.Types.ObjectId(),
-                fullName: req.body.fullName,
-                nickName: req.body.nickName,
-                phone1: req.body.phone1,
-                phone2: req.body.phone2,
-                address: req.body.address,
-                website: req.body.website,
-                email: req.body.email,
-                birthday: req.body.birthday,
-                usersID: req.body.usersID
-            });
-            addressbook
-            .save()
-            .then(result => {
-                console.log(result);
-                res.status(201).json({
-                    message: 'Data successfully is added',
-                    addressbook: addressbook
-                });
-            })
-            .catch(err => {
-                console.log(err);
-                res.status(400).json({
-                    error: err
-                });
-            });
-        }
+    const addressbook = new AddressBooks({
+        _id: new mongoose.Types.ObjectId(),
+        fullName: req.body.fullName,
+        nickName: req.body.nickName,
+        phone1: req.body.phone1,
+        phone2: req.body.phone2,
+        address: req.body.address,
+        website: req.body.website,
+        email: req.body.email,
+        birthday: req.body.birthday,
+        usersID: req.body.usersID
+    });
+    addressbook
+    .save()
+    .then(result => {
+        console.log(result);
+        res.status(201).json({
+            message: 'Data successfully is added',
+            addressbook: addressbook
+        });
     })
     .catch(err => {
         console.log(err);
-        res.status(500).json({
+        res.status(400).json({
             error: err
         });
     });
