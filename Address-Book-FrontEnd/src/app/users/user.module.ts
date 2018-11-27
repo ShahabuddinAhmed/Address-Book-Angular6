@@ -9,6 +9,7 @@ import { EditAddressBookComponent } from './edit-address-book/edit-address-book.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatInputModule, MatFormFieldModule, MatRippleModule } from '@angular/material';
 import { MatMenuModule, MatToolbarModule, MatIconModule, MatCardModule, MatSidenavModule,  MatTooltipModule} from '@angular/material';
+import { MatListModule, MatTabsModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -27,6 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCardModule,
     MatSidenavModule,
     MatTooltipModule,
+    MatListModule,
+    MatTabsModule,
     BrowserAnimationsModule
   ],
   declarations: [
