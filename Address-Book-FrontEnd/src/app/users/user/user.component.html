@@ -2,12 +2,11 @@
   <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
-      <mat-list>
-        <mat-list-item *ngFor="let user of allUser">
-          <h3 mat-line style="font-weight: bolder">{{user.userName}}</h3>
-          <h5 mat-line style="font-weight: bolder">{{user.userEmail}}</h5>
-        </mat-list-item>
-      </mat-list>
+      <div *ngFor="let user of allUser">
+        <h4>{{ user.userName }}</h4>
+        <h5>{{ user.userEmail }}</h5>
+        <h6>{{ user.userPassword }}</h6>
+      </div>
     </div>
     <div class="col-sm-3"></div>
   </div>
