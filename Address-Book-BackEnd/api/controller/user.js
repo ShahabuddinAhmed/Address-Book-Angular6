@@ -157,8 +157,7 @@ exports.deteleteUser = (req, res, next) => {
     .exec()
     .then(result => {
         res.status(200).json({
-            message: "Data is successfully deleted",
-            result
+            message: "Data is successfully deleted"
         });
     })
     .catch(err => {
