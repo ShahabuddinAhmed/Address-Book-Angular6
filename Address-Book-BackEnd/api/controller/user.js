@@ -113,10 +113,7 @@ exports.getOneUser = (req, res, next) => {
     .then(doc => {
         if(doc) {
             console.log("From database", doc);
-            res.status(200).json({
-                message: "Data is successfully gotten by provided ID",
-                doc
-            });
+            res.status(200).json(doc);
         } else {
             res.status(404).json({
                 message: "No data is found by provided ID"
