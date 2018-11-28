@@ -9,11 +9,9 @@ exports.getAllUser = (req, res, next) => {
     .then(docs => {
         if(docs.length >=1) {
             console.log("From database", docs);
-            res.status(200).json({
-                message: "Data is successfully gotten",
-                count: docs.length,
+            res.status(200).json(
                 docs
-            });
+            );
         } else {
             res.status(404).json({
                 message: "Users document is empty."
