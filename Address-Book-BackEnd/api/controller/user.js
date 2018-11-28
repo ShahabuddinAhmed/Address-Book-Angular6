@@ -9,9 +9,7 @@ exports.getAllUser = (req, res, next) => {
     .then(docs => {
         if(docs.length >=1) {
             console.log("From database", docs);
-            res.status(200).json(
-                docs
-            );
+            res.status(200).json(docs);
         } else {
             res.status(404).json({
                 message: "Users document is empty."
@@ -99,10 +97,7 @@ exports.loginUser = (req, res, next) => {
                         expiresIn: "1h"
                     }
                 );
-                return res.status(200).json({
-                    message: "Authentication successful",
-                    token: token
-                });
+                return res.status(200).json(token);
             } 
             return res.status(401).json({
                 message: "Authentication failed"
