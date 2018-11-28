@@ -19,7 +19,7 @@ export class UserComponent implements OnInit {
   private GetAllUser() {
     this._userService.getAlluser().subscribe(data => {
       this.allUser = data;
-      console.log(data);
+      console.log(this.allUser);
     });
   }
 
