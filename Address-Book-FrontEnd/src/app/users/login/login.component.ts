@@ -1,6 +1,8 @@
 import { Login } from './../models/login';
+import { UserService } from '../user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
     ]);
   }
 
-  constructor() { }
+  constructor(private _userService: UserService, private route: Router) { }
 
   ngOnInit() {
     this.CreateFormControls();
@@ -45,8 +47,12 @@ export class LoginComponent implements OnInit {
     this.login = new Login();
     this.login.userEmail = this.email.value;
     this.login.userPassword = this.password.value;
-    console.log(this.login.userEmail);
-    console.log(this.login.userPassword);
+    this._userService.login(this.login)
+    .subscribe(
+      data => console.log(data),
+      this._userService.getToken(data),
+      error => console.error(error)
+    );
   }
 
 }
