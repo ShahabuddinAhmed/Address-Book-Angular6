@@ -94,10 +94,10 @@ exports.loginUser = (req, res, next) => {
                     },
                     process.env.JWT_KEY,
                     {
-                        expiresIn: "1h"
+                        expiresIn: "5m"
                     }
                 );
-                return res.status(200).json(token);
+                return res.status(200).send({token});
             } 
             return res.status(401).json({
                 message: "Authentication failed"
