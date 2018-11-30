@@ -49,9 +49,13 @@ export class LoginComponent implements OnInit {
     this.login.userPassword = this.password.value;
     this._userService.login(this.login)
     .subscribe(
-      data => console.log(data),
-      this._userService.getToken(data),
-      error => console.error(error)
+      data => {
+        console.log(data),
+      this._userService.getToken(data);
+      },
+      error => {
+        console.log(error);
+      }
     );
   }
 
