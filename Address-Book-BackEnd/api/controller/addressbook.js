@@ -9,11 +9,7 @@ exports.getAllAddressBook = (req, res, next) => {
     .then(docs => {
         if(docs.length >=1) {
             console.log("From database", docs);
-            res.status(200).json({
-                message: "Data is successfully gotten",
-                count: docs.length,
-                docs
-            });
+            res.status(200).json(docs);
         } else {
             res.status(404).json({
                 message: "AddressBook document is empty."
@@ -64,11 +60,7 @@ exports.getOneAddressBook = (req, res, next) => {
     .then(doc => {
         if(doc.length >= 1) {
             console.log("From database", doc);
-            res.status(200).json({
-                message: "Data is successfully gotten by provided ID",
-                count: doc.length,
-                doc
-            });
+            res.status(200).json(doc);
         } else {
             res.status(404).json({
                 message: "No data is found by provided ID"
