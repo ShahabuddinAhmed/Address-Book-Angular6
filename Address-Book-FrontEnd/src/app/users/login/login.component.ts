@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     ]);
   }
 
-  constructor(private _userService: UserService, private route: Router) { }
+  constructor(private _userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.CreateFormControls();
@@ -50,11 +50,12 @@ export class LoginComponent implements OnInit {
     this._userService.login(this.login)
     .subscribe(
       data => {
-        console.log(data),
-      this._userService.getToken(data);
+        console.log(data);
+      this._userService.setToken(data);
+      this.router.navigate(['/user']);
       },
-      error => {
-        console.log(error);
+      err => {
+        console.log(err);
       }
     );
   }
