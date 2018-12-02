@@ -1,4 +1,5 @@
 export class AddressBook {
+  _id: string;
   fullName: string;
   nickName: string;
   phone1: string;
@@ -7,4 +8,5 @@ export class AddressBook {
   website: string;
   email: string;
   birthday: string;
+  usersID: string;
 }
