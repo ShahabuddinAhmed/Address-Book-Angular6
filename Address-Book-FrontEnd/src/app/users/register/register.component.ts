@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     ]);
   }
 
-  constructor(private _userService: UserService, private route: Router) { }
+  constructor(private _userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.createFormControls();
@@ -67,9 +67,13 @@ export class RegisterComponent implements OnInit {
     this.register.userPassword = this.password.value;
     this.register.userConfirmPassword = this.confirmPassword.value;
     this._userService.register(this.register)
-    .subscribe(
-      data => console.log(data),
-      error => console.error(error)
+    .subscribe(data => {
+        console.log(data);
+        this.router.navigate(['/addressbook']);
+      },
+      error => {
+        console.error(error);
+      }
       );
   }
 
