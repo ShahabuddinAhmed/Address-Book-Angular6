@@ -75,6 +75,28 @@ exports.getOneAddressBook = (req, res, next) => {
     })
 }
 
+exports.updateOneAddressBook = (req, res, next) => {
+    const id = req.params.userID;
+    AddressBooks.findById(id)
+    .exec()
+    .then(doc => {
+        if(doc) {
+            console.log("From database", doc);
+            res.status(200).json(doc);
+        } else {
+            res.status(404).json({
+                message: "No data is found by provided ID"
+            });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    })
+}
+
 exports.updateAddressBook = (req, res, next) => {
     const id = req.params.userID;
     const updateOps = {};
