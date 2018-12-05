@@ -7,14 +7,15 @@ import { RegisterComponent } from './register/register.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'user', component: UserComponent },
-  { path: 'user/:id', component: EditProfileComponent },
-  { path: 'addressbook', component: CreateAddressBookComponent },
-  { path: 'addressbook/:id', component: EditAddressBookComponent }
+  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'user/:id', component: EditProfileComponent, canActivate: [AuthGuard]  },
+  { path: 'addressbook', component: CreateAddressBookComponent, canActivate: [AuthGuard] },
+  { path: 'addressbook/:id', component: EditAddressBookComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

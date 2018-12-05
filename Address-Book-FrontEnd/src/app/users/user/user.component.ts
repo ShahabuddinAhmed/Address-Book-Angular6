@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Users } from '../models/user';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AddressBook } from '../models/addressbook';
 import { UserService } from '../user.service';
 
 @Component({
@@ -10,17 +10,41 @@ import { UserService } from '../user.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private activeRoute: ActivatedRoute, private _userService: UserService) { }
-  public allUser: Users[];
+  constructor(private activeRoute: ActivatedRoute, private _userService: UserService, private router: Router) { }
+
+  public allAddressBook: AddressBook[];
+  public userID: string;
+
   ngOnInit() {
-    this.GetAllUser();
+    this.getUserID();
+    this.GetAddressBook(this.userID);
   }
 
-  private GetAllUser() {
-    this._userService.getAlluser().subscribe(data => {
-      this.allUser = data;
-      console.log(this.allUser);
+  private getUserID() {
+    this.userID = localStorage.getItem('userID');
+    console.log(this.userID);
+  }
+
+  private GetAddressBook(id) {
+    this._userService.getAddressBook(id).subscribe(data => {
+      this.allAddressBook = data;
+      console.log(this.allAddressBook);
+    },
+    err => {
+      console.log('error');
+    }
+      );
+  }
+
+  deleteAddress(id: string) {
+    this._userService.deleteAddress(id).subscribe(data => {
+      console.log(data);
+      this.router.navigate(['/user']);
     });
+  }
+
+  updateAddress(id: string) {
+    this.router.navigate([`/addressbook/${id}`]);
   }
 
 }

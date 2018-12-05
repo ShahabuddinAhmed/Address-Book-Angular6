@@ -1,13 +1,29 @@
+<br>
+    <br>
+    <br>
 <div class="container">
   <div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-6">
-      <div *ngFor="let user of allUser">
-        <h4>{{ user.userName }}</h4>
-        <h5>{{ user.userEmail }}</h5>
-        <h6>{{ user.userPassword }}</h6>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-header" style="text-align:center">Address Book</div>
+        <div class="color" *ngFor="let addressbook of allAddressBook">
+            <ul class="list-group">
+                <li class="list-group-item">{{ addressbook.fullName }}</li>
+                <li class="list-group-item">{{ addressbook.nickName }}</li>
+                <li class="list-group-item">{{ addressbook.phone1 }}</li>
+                <li class="list-group-item">{{ addressbook.phone2 }}</li>
+                <li class="list-group-item">{{ addressbook.address }}</li>
+                <li class="list-group-item">{{ addressbook.website }}</li>
+                <li class="list-group-item">{{ addressbook.email }}</li>
+                <li class="list-group-item">{{ addressbook.birthday }}</li>
+              </ul>
+            <div class="card-footer">
+              <pre><button type="button" class="btn btn-primary" (click)="updateAddress(addressbook._id)">Update</button>  <button type="button" class="btn btn-danger" (click)="deleteAddress(addressbook._id)">Delete</button></pre>
+            </div>
+        </div>
       </div>
     </div>
-    <div class="col-sm-3"></div>
+    <div class="col-sm-2"></div>
   </div>
 </div>

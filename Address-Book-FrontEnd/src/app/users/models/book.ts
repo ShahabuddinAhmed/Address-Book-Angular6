@@ -7,5 +7,4 @@ export class Book {
   website: string;
   email: string;
   birthday: string;
-  usersID: string;
 }

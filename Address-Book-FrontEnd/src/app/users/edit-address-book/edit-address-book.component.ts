@@ -1,6 +1,8 @@
 import { AddressBook } from './../models/addressbook';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-address-book',
@@ -18,6 +20,9 @@ export class EditAddressBookComponent implements OnInit {
   public email: FormControl;
   public birthday: FormControl;
   addressBook: AddressBook;
+  public userID: string;
+  public AddressBookID: string;
+  public storeAddressBook: AddressBook;
 
   private createFormGroup(): void {
     this.AddressBook = new  FormGroup( {
@@ -76,14 +81,68 @@ export class EditAddressBookComponent implements OnInit {
     ]);
   }
 
-  constructor() { }
+  constructor(private _userService: UserService, private router: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.createFormControls();
     this.createFormGroup();
+    this.getAddressBookID();
+    this.getUserID();
+    this.GetOneAddressBook(this.AddressBookID);
+
   }
 
+  private getUserID() {
+    this.userID = localStorage.getItem('userID');
+    console.log(this.userID);
+  }
+
+  private getAddressBookID() {
+    this.activeRoute.params.subscribe(param => {
+      this.AddressBookID = param['id'];
+      console.log(this.AddressBookID);
+    });
+  }
+
+  private GetOneAddressBook(id: string) {
+    this._userService.getOneAddressBook(id).subscribe((data: AddressBook) => {
+      console.log(data);
+      this.storeAddressBook = data;
+      this.setFormControlvalue();
+    });
+  }
+
+  private setFormControlvalue() {
+    this.fullName.setValue(this.storeAddressBook.fullName);
+    this.nickName.setValue(this.storeAddressBook.nickName);
+    this.phone1.setValue(this.storeAddressBook.phone1);
+    this.phone2.setValue(this.storeAddressBook.phone2);
+    this.address.setValue(this.storeAddressBook.address);
+    this.website.setValue(this.storeAddressBook.website);
+    this.email.setValue(this.storeAddressBook.email);
+    this.birthday.setValue(this.storeAddressBook.birthday);
+  }
+
+
   onSubmit() {
+    // this.addressBook.fullName = this.fullName.value;
+    // this.addressBook.nickName = this.nickName.value;
+    // this.addressBook.phone1 = this.phone1.value;
+    // this.addressBook.phone2 = this.phone2.value;
+    // this.addressBook.address = this.address.value;
+    // this.addressBook.website = this.website.value;
+    // this.addressBook.email = this.email.value;
+    // this.addressBook.birthday = this.birthday.value;
+    // this._userService.addressbook(this.addressBook)
+    // .subscribe(data => {
+    //     console.log(data);
+    //     this.router.navigate(['/user']);
+    //   },
+    //   error => {
+    //     console.error(error);
+    //   }
+    //   );
+
     this.addressBook = new AddressBook();
     this.addressBook.fullName = this.fullName.value;
     this.addressBook.nickName = this.nickName.value;
@@ -93,14 +152,16 @@ export class EditAddressBookComponent implements OnInit {
     this.addressBook.website = this.website.value;
     this.addressBook.email = this.email.value;
     this.addressBook.birthday = this.birthday.value;
-    console.log(this.addressBook.fullName);
-    console.log(this.addressBook.nickName);
-    console.log(this.addressBook.phone1);
-    console.log(this.addressBook.phone2);
-    console.log(this.addressBook.address);
-    console.log(this.addressBook.website);
-    console.log(this.addressBook.email);
-    console.log(this.addressBook.birthday);
+    this.addressBook.usersID = this.userID;
+    this._userService.editAddressBook(this.AddressBookID, this.addressBook)
+    .subscribe(data => {
+        console.log(data);
+        this.router.navigate(['/user']);
+      },
+      error => {
+        console.error(error);
+      }
+      );
   }
 
 }

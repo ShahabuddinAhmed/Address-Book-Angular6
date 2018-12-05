@@ -1,6 +1,8 @@
 import { AddressBook } from './../models/addressbook';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-address-book',
@@ -18,6 +20,7 @@ export class CreateAddressBookComponent implements OnInit {
   public email: FormControl;
   public birthday: FormControl;
   addressBook: AddressBook;
+  public userID: string;
 
   private createFormGroup(): void {
     this.AddressBook = new  FormGroup( {
@@ -76,11 +79,17 @@ export class CreateAddressBookComponent implements OnInit {
     ]);
   }
 
-  constructor() { }
+  constructor(private _userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.createFormControls();
     this.createFormGroup();
+    this.getUserID();
+  }
+
+  private getUserID() {
+    this.userID = localStorage.getItem('userID');
+    console.log(this.userID);
   }
 
   onSubmit() {
@@ -93,14 +102,16 @@ export class CreateAddressBookComponent implements OnInit {
     this.addressBook.website = this.website.value;
     this.addressBook.email = this.email.value;
     this.addressBook.birthday = this.birthday.value;
-    console.log(this.addressBook.fullName);
-    console.log(this.addressBook.nickName);
-    console.log(this.addressBook.phone1);
-    console.log(this.addressBook.phone2);
-    console.log(this.addressBook.address);
-    console.log(this.addressBook.website);
-    console.log(this.addressBook.email);
-    console.log(this.addressBook.birthday);
+    this.addressBook.usersID = this.userID;
+    this._userService.addressbook(this.addressBook)
+    .subscribe(data => {
+        console.log(data);
+        this.router.navigate(['/user']);
+      },
+      error => {
+        console.error(error);
+      }
+      );
   }
 
 }
