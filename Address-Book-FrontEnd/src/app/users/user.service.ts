@@ -8,13 +8,14 @@ import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Login } from './models/login';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   jwtHelper = new JwtHelperService();
 
@@ -87,6 +88,12 @@ export class UserService {
 
   getOneAddressBook(id: string): Observable<AddressBook> {
     return this.http.get<AddressBook>(`http://localhost:3000/addressbook/getone/${id}`);
+  }
+
+  loggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userID');
+    this.router.navigate(['/']);
   }
 
 }
