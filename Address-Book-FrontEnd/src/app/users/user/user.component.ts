@@ -31,7 +31,7 @@ export class UserComponent implements OnInit {
       console.log(this.allAddressBook);
     },
     err => {
-      console.log('error');
+      console.log(err);
     }
       );
   }
