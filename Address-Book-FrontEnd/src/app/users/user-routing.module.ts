@@ -8,10 +8,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../auth/auth.guard';
+import { CheckGuardGuard } from '../auth/check-guard.guard';
 
 const routes: Routes = [
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [CheckGuardGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [CheckGuardGuard] },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'user/:id', component: EditProfileComponent, canActivate: [AuthGuard]  },
   { path: 'addressbook', component: CreateAddressBookComponent, canActivate: [AuthGuard] },
