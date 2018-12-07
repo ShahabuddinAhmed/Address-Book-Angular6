@@ -116,7 +116,11 @@ exports.getOneUser = (req, res, next) => {
     .then(doc => {
         if(doc) {
             console.log("From database", doc);
-            res.status(200).json(doc);
+            res.status(200).json({
+                userName: doc.userName,
+                userEmail: doc.userEmail,
+                userPassword: doc.userPassword
+            });
         } else {
             res.status(404).json({
                 message: "No data is found by provided ID"
@@ -133,24 +137,32 @@ exports.getOneUser = (req, res, next) => {
 
 exports.updateUser = (req, res, next) => {
     const id = req.params.userID;
-    const updateOps = {};
-    for(const ops of req.body) {
-        updateOps[ops.updateName] = ops.value;
-    }
-    Users.update({ _id: id }, { $set: updateOps })
-    .exec()
-    .then(result => {
-        console.log(result);
-        res.status(200).json({
-            message: "Data is successfully updated",
-            result
-        });
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({
-            error: err
-        });
+    bcrypt.hash(req.body.userPassword, 10, (err, hash) => {
+        if(err) {
+            return res.status(500).json({
+                error: err
+            });
+        } else {
+            Users.update({ _id: id }, { $set: {
+                userName: req.body.userName,
+                userEmail: req.body.userEmail,
+                userPassword: hash
+            }})
+            .exec()
+            .then(result => {
+                console.log(result);
+                res.status(200).json({
+                    message: "Data is successfully updated",
+                    result
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+        }
     });
 }
 
