@@ -99,10 +99,6 @@ exports.updateOneAddressBook = (req, res, next) => {
 
 exports.updateAddressBook = (req, res, next) => {
     const id = req.params.userID;
-    // const updateOps = {};
-    // for(const ops of req.body) {
-    //     updateOps[ops.updateName] = ops.value;
-    // }
     AddressBooks.update({ _id: id }, { $set: {
         fullName: req.body.fullName,
         nickName: req.body.nickName,
@@ -113,7 +109,7 @@ exports.updateAddressBook = (req, res, next) => {
         email: req.body.email,
         birthday: req.body.birthday,
         usersID: req.body.usersID
-    } })
+    }})
     .exec()
     .then(result => {
         console.log(result);
