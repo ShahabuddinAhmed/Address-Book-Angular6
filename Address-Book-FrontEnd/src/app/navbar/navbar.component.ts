@@ -12,12 +12,14 @@ export class NavbarComponent implements OnInit {
   constructor(private _userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.getID();
   }
 
   loggedOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userID');
-    this.router.navigate(['/']);
+    this._userService.loggedOut();
+  }
+  getID() {
+    return localStorage.getItem('userID');
   }
 
 }
