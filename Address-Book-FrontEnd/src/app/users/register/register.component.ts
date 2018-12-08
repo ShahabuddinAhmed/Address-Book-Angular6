@@ -1,8 +1,10 @@
+import { Login } from './../models/login';
 import { Register } from './../models/register';
 import { UserService } from '../user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ComparePassword } from '../../share/compare-password.directive';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +21,7 @@ export class RegisterComponent implements OnInit {
   public password: FormControl;
   public confirmPassword: FormControl;
   register: Register;
+  login: Login;
 
   private createFormGroup(): void {
     this.Register = new  FormGroup( {
@@ -48,8 +51,7 @@ export class RegisterComponent implements OnInit {
     ]);
     this.confirmPassword = new FormControl('', [
       Validators.required,
-      Validators.minLength(6),
-      Validators.maxLength(30)
+      ComparePassword('password')
     ]);
   }
 
@@ -68,8 +70,19 @@ export class RegisterComponent implements OnInit {
     this.register.userConfirmPassword = this.confirmPassword.value;
     this._userService.register(this.register)
     .subscribe(data => {
-        console.log(data);
-        this.router.navigate(['/addressbook']);
+        this.login = new Login();
+        this.login.userEmail = this.register.userEmail,
+        this.login.userPassword = this.register.userPassword,
+        this._userService.login(this.login)
+        .subscribe(
+          value => {
+          this._userService.setToken(value);
+          this.router.navigate(['/user']);
+          },
+          err => {
+            console.log(err);
+          }
+        );
       },
       error => {
         console.error(error);
