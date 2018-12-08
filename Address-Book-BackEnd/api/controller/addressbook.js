@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const AddressBooks = require('../models/addressbook');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
 exports.getAllAddressBook = (req, res, next) => {
     AddressBooks.find()
@@ -41,8 +39,7 @@ exports.createAddressBook = (req, res, next) => {
     .then(result => {
         console.log(result);
         res.status(201).json({
-            message: 'Data successfully is added',
-            addressbook: addressbook
+            message: 'Contact is successfully added'
         });
     })
     .catch(err => {
@@ -114,8 +111,7 @@ exports.updateAddressBook = (req, res, next) => {
     .then(result => {
         console.log(result);
         res.status(200).json({
-            message: "Data is successfully updated",
-            result
+            message: "Contact is successfully updated"
         });
     })
     .catch(err => {
@@ -132,8 +128,7 @@ exports.deteleteAddressBook = (req, res, next) => {
     .exec()
     .then(result => {
         res.status(200).json({
-            message: "Data is successfully deleted",
-            result
+            message: "Contact is successfully deleted"
         });
     })
     .catch(err => {
