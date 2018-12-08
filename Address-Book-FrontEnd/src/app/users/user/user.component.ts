@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddressBook } from '../models/addressbook';
 import { UserService } from '../user.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-user',
@@ -9,6 +10,8 @@ import { UserService } from '../user.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+
+  jwtHelper = new JwtHelperService();
 
   constructor(private activeRoute: ActivatedRoute, private _userService: UserService, private router: Router) { }
 
@@ -21,8 +24,9 @@ export class UserComponent implements OnInit {
   }
 
   private getUserID() {
-    this.userID = localStorage.getItem('userID');
-    console.log(this.userID);
+    const token = localStorage.getItem('token');
+    const tokenPayload = this.jwtHelper.decodeToken(token);
+    this.userID = tokenPayload.userID;
   }
 
   private GetAddressBook(id) {
