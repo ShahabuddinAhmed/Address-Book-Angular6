@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-create-address-book',
@@ -21,6 +22,7 @@ export class CreateAddressBookComponent implements OnInit {
   public birthday: FormControl;
   addressBook: AddressBook;
   public userID: string;
+  jwtHelper = new JwtHelperService();
 
   private createFormGroup(): void {
     this.AddressBook = new  FormGroup( {
@@ -88,8 +90,9 @@ export class CreateAddressBookComponent implements OnInit {
   }
 
   private getUserID() {
-    this.userID = localStorage.getItem('userID');
-    console.log(this.userID);
+    const token = localStorage.getItem('token');
+    const tokenPayload = this.jwtHelper.decodeToken(token);
+    this.userID = tokenPayload.userID;
   }
 
   onSubmit() {
