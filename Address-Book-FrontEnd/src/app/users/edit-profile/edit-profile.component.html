@@ -7,7 +7,7 @@
       <mat-card class="signin-card">
         <mat-card-content>
           <div class="card-basic-content">
-            <h2 class="font-weight-bold"><i>New User</i></h2>
+            <h2 class="font-weight-bold"><i>Update User Info</i></h2>
           </div>
 
           <form class="example-form" [formGroup]="Register" (ngSubmit)="onSubmit()" novalidate>
@@ -39,7 +39,7 @@
 
             </mat-form-field>
 
-            <button [disabled]='!Register.valid' type="submit" mat-raised-button color="primary" class="form-button">SignUp</button>
+            <button [disabled]='!Register.valid' type="submit" mat-raised-button color="primary" class="form-button">Update</button>
 
           </form>
         </mat-card-content>
