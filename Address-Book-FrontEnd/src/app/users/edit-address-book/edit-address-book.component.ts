@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-edit-address-book',
@@ -23,6 +24,7 @@ export class EditAddressBookComponent implements OnInit {
   public userID: string;
   public AddressBookID: string;
   public storeAddressBook: AddressBook;
+  jwtHelper = new JwtHelperService();
 
   private createFormGroup(): void {
     this.AddressBook = new  FormGroup( {
@@ -93,8 +95,9 @@ export class EditAddressBookComponent implements OnInit {
   }
 
   private getUserID() {
-    this.userID = localStorage.getItem('userID');
-    console.log(this.userID);
+    const token = localStorage.getItem('token');
+    const tokenPayload = this.jwtHelper.decodeToken(token);
+    this.userID = tokenPayload.userID;
   }
 
   private getAddressBookID() {
@@ -105,7 +108,7 @@ export class EditAddressBookComponent implements OnInit {
   }
 
   private GetOneAddressBook(id: string) {
-    this._userService.getOneAddressBook(id).subscribe((data: AddressBook) => {
+    this._userService.getOneAddressBook(id).subscribe(data => {
       console.log(data);
       this.storeAddressBook = data;
       this.setFormControlvalue();
@@ -125,24 +128,6 @@ export class EditAddressBookComponent implements OnInit {
 
 
   onSubmit() {
-    // this.addressBook.fullName = this.fullName.value;
-    // this.addressBook.nickName = this.nickName.value;
-    // this.addressBook.phone1 = this.phone1.value;
-    // this.addressBook.phone2 = this.phone2.value;
-    // this.addressBook.address = this.address.value;
-    // this.addressBook.website = this.website.value;
-    // this.addressBook.email = this.email.value;
-    // this.addressBook.birthday = this.birthday.value;
-    // this._userService.addressbook(this.addressBook)
-    // .subscribe(data => {
-    //     console.log(data);
-    //     this.router.navigate(['/user']);
-    //   },
-    //   error => {
-    //     console.error(error);
-    //   }
-    //   );
-
     this.addressBook = new AddressBook();
     this.addressBook.fullName = this.fullName.value;
     this.addressBook.nickName = this.nickName.value;
