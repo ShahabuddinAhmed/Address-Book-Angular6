@@ -49,8 +49,7 @@ exports.registerUser = (req, res, next) => {
                     .then(result => {
                         console.log(result);
                         res.status(201).json({
-                            message: 'Data successfully is added',
-                            userInfo: user
+                            message: 'Data successfully is added'
                         });
                     })
                     .catch(err => {
@@ -89,8 +88,8 @@ exports.loginUser = (req, res, next) => {
             if(result) {
                 const token = jwt.sign(
                     {
-                        userEmail: user[0].userEmail,
-                        userId: user[0]._id
+                        userName: user[0].userName,
+                        userID: user[0]._id
                     },
                     process.env.JWT_KEY,
                     {
@@ -98,8 +97,7 @@ exports.loginUser = (req, res, next) => {
                     }
                 );
                 return res.status(200).send({
-                    userID: user[0]._id,
-                    token
+                    token: token
                 });
             } 
             return res.status(401).json({
@@ -116,11 +114,7 @@ exports.getOneUser = (req, res, next) => {
     .then(doc => {
         if(doc) {
             console.log("From database", doc);
-            res.status(200).json({
-                userName: doc.userName,
-                userEmail: doc.userEmail,
-                userPassword: doc.userPassword
-            });
+            res.status(200).json(doc);
         } else {
             res.status(404).json({
                 message: "No data is found by provided ID"
@@ -152,8 +146,7 @@ exports.updateUser = (req, res, next) => {
             .then(result => {
                 console.log(result);
                 res.status(200).json({
-                    message: "Data is successfully updated",
-                    result
+                    message: "Data is successfully updated"
                 });
             })
             .catch(err => {
