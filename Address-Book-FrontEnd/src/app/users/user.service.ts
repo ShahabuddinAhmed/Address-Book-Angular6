@@ -49,6 +49,16 @@ export class UserService {
     return this.http.patch(`http://localhost:3000/addressbook/update/${id}`, _addressbook, httpOptions);
   }
 
+  updateUser(id: string, register: Register) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.patch(`http://localhost:3000/user/update/${id}`, register, httpOptions);
+  }
+
   login(_login: Login) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -61,6 +71,10 @@ export class UserService {
 
   getAlluser(): Observable<Users[]> {
     return this.http.get<Users[]>('http://localhost:3000/user/');
+  }
+
+  getUser(id: string): Observable<Users> {
+    return this.http.get<Users>(`http://localhost:3000/user/${id}`);
   }
 
   getAddressBook(id: string): Observable<AddressBook[]> {
