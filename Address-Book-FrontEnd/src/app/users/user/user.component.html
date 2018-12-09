@@ -1,4 +1,5 @@
-<br>
+<div class="bg">
+  <br>
     <br>
     <br>
 <div class="container">
@@ -19,11 +20,13 @@
                 <li class="list-group-item">{{ addressbook.birthday }}</li>
               </ul>
             <div class="card-footer">
-              <pre><button type="button" class="btn btn-primary" (click)="updateAddress(addressbook._id)">Update</button>  <button type="button" class="btn btn-danger" (click)="deleteAddress(addressbook._id)">Delete</button></pre>
+              <button mdbBtn type="button" color="primary" class="rounded" mdbWavesEffect (click)="updateAddress(addressbook._id)">Update</button>
+              <button mdbBtn type="button" color="danger" class="rounded" mdbWavesEffect (click)="deleteAddress(addressbook._id)">Delete</button>
             </div>
         </div>
       </div>
     </div>
     <div class="col-sm-2"></div>
   </div>
+</div>
 </div>
