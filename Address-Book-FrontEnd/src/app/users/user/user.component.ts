@@ -41,10 +41,16 @@ export class UserComponent implements OnInit {
   }
 
   deleteAddress(id: string) {
-    this._userService.deleteAddress(id).subscribe(data => {
-      console.log(data);
-      this.router.navigate(['/user']);
-    });
+    this._userService.deleteAddress(id)
+    .subscribe(
+      data => {
+        console.log(data);
+      this.router.navigate(['/login']);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   updateAddress(id: string) {
