@@ -1,34 +1,53 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-  <a class="navbar-brand" href="/">Home</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">About<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" *ngIf="!_userService.loggedIn()" href="register">Register</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" *ngIf="!_userService.loggedIn()" href="login">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" *ngIf="!!_userService.loggedIn()" href="user">User</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" *ngIf="!!_userService.loggedIn()" href="addressbook">Create new Address Book</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Shahabuddin Ahmed
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="user/{{getID()}}">Update Profile</a>
-          <a class="dropdown-item" *ngIf="!!_userService.loggedIn()" (click)="loggedOut()" href="">Logout</a>
-        </div>
-      </li>
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
+
+  <!-- Navbar brand -->
+  <mdb-navbar-brand><a class="navbar-brand">Menu<span class="sr-only">(current)</span></a></mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link waves-light" mdbWavesEffect href="/">Home<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect *ngIf="!!_userService.loggedIn()" href="user">User</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect *ngIf="!!_userService.loggedIn()" href="addressbook">Create new Address Book</a>
+        </li>
+        <!-- Dropdown -->
+      </ul>
+      <ul class="navbar-nav mr-0">
+        <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect *ngIf="!!_userService.loggedIn()"><span class="caret">{{ getName() }}</span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect href="user/{{getID()}}">Update Profile</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect *ngIf="!!_userService.loggedIn()" (click)="loggedOut()" href="">Logout</a>
+          </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link waves-light" mdbWavesEffect *ngIf="!_userService.loggedIn()" href="login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link waves-light" mdbWavesEffect *ngIf="!_userService.loggedIn()" href="register">Register</a>
+        </li>
     </ul>
-  </div>
-</nav>
+      <!-- Links -->
+
+      <!-- Search form -->
+      <!-- <form class="form-inline waves-light" mdbWavesEffect>
+          <div class="md-form mt-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Search">
+          </div>
+      </form> -->
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
