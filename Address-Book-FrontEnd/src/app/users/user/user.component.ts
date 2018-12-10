@@ -45,7 +45,7 @@ export class UserComponent implements OnInit {
     .subscribe(
       data => {
         console.log(data);
-      this.router.navigate(['/login']);
+      this.GetAddressBook(this.userID);
       },
       err => {
         console.log(err);
