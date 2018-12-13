@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddressBook } from '../models/addressbook';
 import { UserService } from '../user.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-user',
@@ -12,6 +13,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class UserComponent implements OnInit {
 
   jwtHelper = new JwtHelperService();
+  @ViewChild('content') Content: ElementRef;
 
   constructor(private activeRoute: ActivatedRoute, private _userService: UserService, private router: Router) { }
 
@@ -55,6 +57,22 @@ export class UserComponent implements OnInit {
 
   updateAddress(id: string) {
     this.router.navigate([`/addressbook/${id}`]);
+  }
+
+  downloadPDF() {
+    const doc = new jsPDF();
+    const specialElementHandlers = {
+      '#editor': function(element, renderer) {
+        return true;
+      }
+    };
+    const content  = this.Content.nativeElement;
+    doc.fromHTML(content.innerHTML, 15, 15, {
+      'width': '190',
+      'elementHandlers': specialElementHandlers
+    });
+
+    doc.save('contact.pdf');
   }
 
 }
